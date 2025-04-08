@@ -1,15 +1,17 @@
 <?php
-namespace  Src\event\category\application;
+
+namespace Src\event\category\application;
+
 use Src\event\category\domain\contracts\CategoryRepositoryInterface;
 
-class GetAllCategory
+class GetCategoryUseCase
 {
-    private CategoryRepositoryInterface $categoryRepository;
+    private $categoryRepository;
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
-    public function execute(): array
+    public function execute():array
     {
         return $this->categoryRepository->getAll();
     }

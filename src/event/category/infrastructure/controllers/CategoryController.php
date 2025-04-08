@@ -28,14 +28,13 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        // Crear la categoría sin pasarle un ID explícito (el ID es auto-generado por la DB)
-        $categoryName = new CategoryName($request->name);  // Creamos un valor objeto para el nombre de la categoría
-        $category = new Category(null, $categoryName, $request->description); // ID es null porque se generará automáticamente
+        $categoryName = new CategoryName($request->name);
+        $category = new Category(null, $categoryName, $request->description);
 
-        // Ejecutar la creación de la categoría pasando la entidad completa
         $createdCategory = $this->crearCategoria->execute($category);
 
-        return response()->json(['message' => 'Category created successfully', 'category' => $createdCategory], 201);
+        return response()->json(['message' => 'Category created successfullysss', 'category' => $createdCategory], 201);
+
     }
 
     public function show($id)
@@ -46,4 +45,21 @@ class CategoryController extends Controller
         }
         return response()->json($category);
     }
+    public function getAll(): array
+    {
+        $categories = EloquentCategory::all(); // Obtiene todas las categorías
+        return $categories->map(function ($category) {
+            return new Category($category->id, new CategoryName($category->name), $category->description);
+        })->toArray();
+    }
+    public function destroy(int $id)
+    {
+        $category = $this->categoryRepository->getById($id);
+        if ($category === null) {
+            return response()->json(['message' => 'Category not found'], 404);
+        }
+        $this->categoryRepository->delete($id);
+        return response()->json(['message' => 'Category deleted successfully']);
+    }
+
 }

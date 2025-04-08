@@ -1,16 +1,15 @@
 <?php
 
-namespace Src\event\category\domain\value_objects;
+namespace Src\event\product\domain\value_objects;
 
-class CategoryName
+class ProductName
 {
     private string $value;
 
     public function __construct(string $value)
     {
         if (empty($value)) {
-            throw new \InvalidArgumentException("Category name cannot be empty");
-
+            throw new \InvalidArgumentException("Product name cannot be empty");
         }
         $this->value = $value;
     }
@@ -19,8 +18,5 @@ class CategoryName
     {
         return $this->value;
     }
-    public function __toString(): string
-    {
-        return $this->value;
-    }
+
 }

@@ -1,15 +1,34 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Src\event\category\infrastructure\controllers\CategoryController;
 
-//Route::get('/user', function (Request $request) {
-//    return $request->user();
-//})->middleware('auth:sanctum');
-//
-//Route::prefix('event_category')->group(base_path('src/event/category/infrastructure/routes/api.php'));
-//
+use Src\event\category\infrastructure\controllers\CreateCategoryController;
+use Src\event\category\infrastructure\controllers\GetCategoryController;
+use Src\event\category\infrastructure\controllers\UpdateCategoryController;
+use Src\event\category\infrastructure\controllers\DeleteCategoryController;
+use Src\event\product\infrastructure\controllers\GetProductController;
 
+
+
+
+use Src\event\product\infrastructure\controllers\CreateProductController;
+
+use Src\event\product\infrastructure\controllers\UpdateProductController;
 //Category
-Route::resource('categories', CategoryController::class);
+//metodo post
+Route::post('/category', [CreateCategoryController::class, 'store']);
+//metodo get
+Route::get('/category', [GetCategoryController::class, 'index']);
+//metodo update
+Route::put('/category/{id}', [UpdateCategoryController::class, 'update']);
+//metodo delete
+Route::delete('/category/{id}', [DeleteCategoryController::class, 'delete']);
+
+//Product
+//metodo post
+Route::post('/product', [CreateProductController::class, 'store']);
+//metodo get
+Route::get('/product', [GetProductController::class, 'index']);
+//metodo update
+Route::put('/product/{id}', [UpdateProductController::class, 'update']);
+
