@@ -6,13 +6,11 @@ use Src\event\category\infrastructure\controllers\CreateCategoryController;
 use Src\event\category\infrastructure\controllers\GetCategoryController;
 use Src\event\category\infrastructure\controllers\UpdateCategoryController;
 use Src\event\category\infrastructure\controllers\DeleteCategoryController;
+
+
 use Src\event\product\infrastructure\controllers\GetProductController;
-
-
-
-
+use Src\event\product\infrastructure\controllers\DeleteProductController;
 use Src\event\product\infrastructure\controllers\CreateProductController;
-
 use Src\event\product\infrastructure\controllers\UpdateProductController;
 //Category
 //metodo post
@@ -30,5 +28,7 @@ Route::post('/product', [CreateProductController::class, 'store']);
 //metodo get
 Route::get('/product', [GetProductController::class, 'index']);
 //metodo update
-Route::put('/product/{id}', [UpdateProductController::class, 'update']);
+Route::post('/product/{id}', [UpdateProductController::class, 'update']);
+//metodo delete
+Route::delete('/product/{id}', [DeleteProductController::class, 'delete']);
 

@@ -17,7 +17,7 @@ class Product implements JsonSerializable
     private ProductDescription $description;
     private ProductPrice $price;
     private ProductStock $stock;
-    private int $categoryId;
+    private int $category_id;
     private ProductImage $image;
 
     public function __construct(
@@ -26,7 +26,7 @@ class Product implements JsonSerializable
         ProductDescription $description,
         ProductPrice       $price,
         ProductStock       $stock,
-        int                $categoryId,
+        int                $category_id,
         ProductImage $image
     )
     {
@@ -35,7 +35,7 @@ class Product implements JsonSerializable
         $this->description = $description;
         $this->price = $price;
         $this->stock = $stock;
-        $this->categoryId = $categoryId;
+        $this->category_id = $category_id;
         $this->image = $image;
     }
 
@@ -66,7 +66,7 @@ class Product implements JsonSerializable
 
     public function getCategoryId(): int
     {
-        return $this->categoryId;
+        return $this->category_id;
     }
 
     public function getImage(): ProductImage
@@ -83,7 +83,7 @@ class Product implements JsonSerializable
             'description' => $this->description->getValue(),
             'price' => $this->price->getValue(),
             'stock' => $this->stock->getValue(),
-            'categoryId' => $this->categoryId,
+            'categoryId' => $this->category_id,
             'image' => $this->image->getValue()
         ];
     }

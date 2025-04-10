@@ -22,6 +22,8 @@ class UpdateProductController extends Controller
     {
         $this->updateProductUseCase = $updateProductUseCase;
     }
+
+
     public function update(Request $request, int $id)
     {
         $request->validate([
@@ -30,9 +32,10 @@ class UpdateProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'required|integer|exists:categories,id',
-            'image' =>  'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
         ]);
-// Procesar la imagen si existe
+
+        // Procesar la imagen si existe
         $imagePath = $request->file('image') ? $request->file('image')->store('images', 'public') : null;
 
         $productName = new ProductName($request->name);
@@ -40,8 +43,8 @@ class UpdateProductController extends Controller
         $productPrice = new ProductPrice($request->price);
         $productStock = new ProductStock($request->stock);
 
-// Si hay una imagen, la pasamos como un valor en ProductImage
-        $productImage = $imagePath ? new ProductImage($imagePath) : null;
+        // Si no hay imagen, crea un objeto ProductImage con un valor predeterminado
+        $productImage = $imagePath ? new ProductImage($imagePath) : new ProductImage('default/image/path.jpg');
 
         $product = new Product(
             $id,
@@ -55,9 +58,9 @@ class UpdateProductController extends Controller
 
         try {
             $updatedProduct = $this->updateProductUseCase->execute($product);
+            return ResponseHelper::success($updatedProduct , 'Product updated successfully', 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return ResponseHelper::error($e);
         }
     }
-
 }
